@@ -10,7 +10,7 @@ import CardPost from '../Components/CardPost';
 import Error from '../Components/Error';
 import Sceleton from '../Components/Sceleton';
 
-import { clearPost, fetchItem, addComment } from '../store/actions/actionsPost';
+import { clearPost, fetchPost, addComment } from '../store/actions/actionsPost';
 
 const PostContainer = (props) => {
   const { id } = props.match.params;
@@ -19,11 +19,11 @@ const PostContainer = (props) => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(fetchItem(id));
+    dispatch(fetchPost(id));
     return () => dispatch(clearPost());
   }, [id, dispatch]);
 
-  const comment = (data) => dispatch(addComment(data));
+  const commentPost = (data) => dispatch(addComment(data));
 
   if (error) {
     return <Error error={error} />;
@@ -34,7 +34,7 @@ const PostContainer = (props) => {
       {loading || !Object.keys(post).length ? (
         <Sceleton count={1} />
       ) : (
-        <CardPost post={post} addComment={comment} />
+        <CardPost post={post} addComment={commentPost} />
       )}
     </Container>
   );

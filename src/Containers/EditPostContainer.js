@@ -16,8 +16,6 @@ const EditPostContainer = ({ match }) => {
     (post) => post.id === postId
   );
 
-  console.log(postId);
-
   const fetchPost = (data, id) => dispatch(fetchPutItem(data, id));
 
   React.useEffect(() => {

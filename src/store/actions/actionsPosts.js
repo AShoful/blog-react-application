@@ -23,7 +23,7 @@ export function fetchItems() {
   };
 }
 
-export function fetchItemsSuccess(data) {
+function fetchItemsSuccess(data) {
   return {
     type: FETCH_ITEMS_SUCCESS,
     data

@@ -1,29 +1,29 @@
 /* eslint-disable no-alert */
 import postApi from '../../api';
-import { CLEAR_ITEM, FETCH_ITEM_SUCCESS, ADD_COMMENT } from './actionTypes';
+import { CLEAR_POST, FETCH_POST_SUCCESS, ADD_COMMENT } from './actionTypes';
 import { showLoader, showError, hideError, hideLoader } from './actionsApp';
 
-export function fetchItemSuccess(post) {
+function fetchPostSuccess(post) {
   return {
-    type: FETCH_ITEM_SUCCESS,
+    type: FETCH_POST_SUCCESS,
     payload: post
   };
 }
 
 export function clearPost() {
   return {
-    type: CLEAR_ITEM
+    type: CLEAR_POST
   };
 }
 
-export function fetchItem(id) {
+export function fetchPost(id) {
   return async (dispatch) => {
     dispatch(showLoader());
     dispatch(hideError());
     const res = await postApi.getItem(id);
     try {
       const post = res.data;
-      dispatch(fetchItemSuccess(post));
+      dispatch(fetchPostSuccess(post));
       dispatch(hideLoader());
     } catch (error) {
       dispatch(showError(error.message));

@@ -1,18 +1,18 @@
 /* eslint-disable no-param-reassign */
 import {
-  FETCH_ITEM_SUCCESS,
-  CLEAR_ITEM,
+  FETCH_POST_SUCCESS,
+  CLEAR_POST,
   ADD_COMMENT
 } from '../actions/actionTypes';
 
 export default function(state = {}, action) {
   switch (action.type) {
-    case FETCH_ITEM_SUCCESS:
+    case FETCH_POST_SUCCESS:
       return { ...action.payload };
     case ADD_COMMENT:
       state.comments.push(action.data);
       return { ...state };
-    case CLEAR_ITEM:
+    case CLEAR_POST:
       return {};
     default:
       return state;
