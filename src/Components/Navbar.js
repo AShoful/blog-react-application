@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = (props) => {
-  // const { authenticated } = props;
   const classes = useStyles();
   return (
     <ElevationScroll {...props} className={classes.root}>

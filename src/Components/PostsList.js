@@ -14,18 +14,21 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    minHeight: 60
-  },
-  icons: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  link: {
-    textDecoration: 'none'
-  }
-}));
+const useStyles = makeStyles((theme) => {
+  return {
+    root: {
+      minHeight: 60
+    },
+    icons: {
+      display: 'flex',
+      justifyContent: 'space-between'
+    },
+    link: {
+      textDecoration: 'none',
+      color: theme.palette.primary.main
+    }
+  };
+});
 
 export default function PostsList({ item, remove }) {
   const { id, title } = item;
@@ -48,10 +51,10 @@ export default function PostsList({ item, remove }) {
         </Grid>
         <Grid item xs={12} sm={2} className={classes.icons}>
           <IconButton component={Link} to={`/post/edit/${id}`}>
-            <EditIcon fontSize="small" />
+            <EditIcon fontSize="small" color="primary" />
           </IconButton>
           <IconButton onClick={handleClickDelete}>
-            <DeleteIcon fontSize="small" />
+            <DeleteIcon fontSize="small" color="primary" />
           </IconButton>
         </Grid>
       </Grid>
