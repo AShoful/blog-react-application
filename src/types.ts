@@ -16,7 +16,7 @@ import {
 export interface IPosts {
   id?: number;
   title: string;
-  body: number;
+  body: string;
 }
 
 export interface IApp {
@@ -26,14 +26,14 @@ export interface IApp {
 
 export interface IComment {
   body: string;
-  postId: number;
+  postId?: number;
 }
 
 export interface IPost {
   id?: number;
-  title: string;
-  body: number;
-  comment: IComment[];
+  title?: string;
+  body?: string;
+  comments: IComment[];
 }
 
 export interface IRootState {

@@ -6,8 +6,13 @@ import {
   CLEAR_POST,
   ADD_COMMENT
 } from '../actions/actionTypes';
+import { ActionsType, IPost } from '../../types';
 
-export default function(state = {}, action) {
+const initialState: IPost = {
+  comments: []
+};
+
+export default function(state = initialState, action: ActionsType) {
   switch (action.type) {
     case FETCH_POST_SUCCESS:
       return { ...action.payload };
