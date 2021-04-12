@@ -1,3 +1,5 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-alert */
 /* eslint-disable no-use-before-define */
 import postApi from '../../api';
@@ -7,9 +9,10 @@ import {
   FETCH_ITEMS_SUCCESS
 } from './actionTypes';
 import { showLoader, showError, hideError, hideLoader } from './actionsApp';
+import { ActionsType, IPosts } from '../../types';
 
 export function fetchItems() {
-  return async (dispatch) => {
+  return async (dispatch: (arg0: ActionsType) => void) => {
     dispatch(showLoader());
     dispatch(hideError());
     const cards = await postApi.get();
@@ -23,15 +26,15 @@ export function fetchItems() {
   };
 }
 
-function fetchItemsSuccess(data) {
+function fetchItemsSuccess(data: IPosts[]): ActionsType {
   return {
     type: FETCH_ITEMS_SUCCESS,
     data
   };
 }
 
-export function fetchItem(id) {
-  return async (dispatch) => {
+export function fetchItem(id: number) {
+  return async (dispatch: (arg0: ActionsType) => void) => {
     dispatch(showLoader());
     dispatch(hideError());
     const res = await postApi.getItem(id);
@@ -46,15 +49,15 @@ export function fetchItem(id) {
   };
 }
 
-export function fetchItemSuccess(post) {
+export function fetchItemSuccess(post: IPosts): ActionsType {
   return {
     type: FETCH_ITEM_SUCCESS,
-    payload: post
+    data: post
   };
 }
 
-export function fetchRemoveItem(id) {
-  return async (dispatch) => {
+export function fetchRemoveItem(id: number) {
+  return async (dispatch: (arg0: ActionsType) => void) => {
     await postApi.remove(id);
     try {
       dispatch(removeItem(id));
@@ -65,15 +68,15 @@ export function fetchRemoveItem(id) {
   };
 }
 
-export function removeItem(id) {
+export function removeItem(id: number): ActionsType {
   return {
     type: FETCH_ITEM_REMOVE,
-    payload: id
+    id
   };
 }
 
-export function fetchPostItem(data) {
-  return async (dispatch) => {
+export function fetchPostItem(data: IPosts) {
+  return async (dispatch: (arg0: ActionsType) => void) => {
     dispatch(showLoader());
     dispatch(hideError());
     await postApi.post(data);
@@ -87,8 +90,8 @@ export function fetchPostItem(data) {
   };
 }
 
-export function fetchPutItem(data, id) {
-  return async (dispatch) => {
+export function fetchPutItem(data: IPosts, id: number) {
+  return async (dispatch: (arg0: ActionsType) => void) => {
     dispatch(showLoader());
     dispatch(hideError());
     await postApi.put(data, id);

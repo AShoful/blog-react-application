@@ -1,23 +1,26 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-alert */
 import postApi from '../../api';
 import { CLEAR_POST, FETCH_POST_SUCCESS, ADD_COMMENT } from './actionTypes';
 import { showLoader, showError, hideError, hideLoader } from './actionsApp';
+import { ActionsType, IPost, IComment } from '../../types';
 
-function fetchPostSuccess(post) {
+function fetchPostSuccess(post: IPost): ActionsType {
   return {
     type: FETCH_POST_SUCCESS,
     payload: post
   };
 }
 
-export function clearPost() {
+export function clearPost(): ActionsType {
   return {
     type: CLEAR_POST
   };
 }
 
-export function fetchPost(id) {
-  return async (dispatch) => {
+export function fetchPost(id: number) {
+  return async (dispatch: (arg0: ActionsType) => void) => {
     dispatch(showLoader());
     dispatch(hideError());
     const res = await postApi.getItem(id);
@@ -32,15 +35,15 @@ export function fetchPost(id) {
   };
 }
 
-function addCommentStore(data) {
+function addCommentStore(data: IComment): ActionsType {
   return {
     type: ADD_COMMENT,
     data
   };
 }
 
-export function addComment(data) {
-  return async (dispatch) => {
+export function addComment(data: IComment) {
+  return async (dispatch: (arg0: ActionsType) => void) => {
     dispatch(showLoader());
     dispatch(hideError());
     await postApi.addComment(data);

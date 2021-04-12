@@ -10,11 +10,9 @@ export default function(state = [], action) {
     case FETCH_ITEMS_SUCCESS:
       return [...action.data];
     case FETCH_ITEM_SUCCESS:
-      return [
-        ...(state.items ? [...state.items, action.payload] : [action.payload])
-      ];
+      return [...(state.items ? [...state.items, action.data] : [action.data])];
     case FETCH_ITEM_REMOVE:
-      return [...state.filter((item) => item.id !== action.payload)];
+      return [...state.filter((item) => item.id !== action.id)];
     default:
       return state;
   }
