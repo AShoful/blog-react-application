@@ -2,28 +2,34 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { Container } from '@material-ui/core';
 import CardPost from '../Components/CardPost';
 import Error from '../Components/Error';
 import Sceleton from '../Components/Sceleton';
+import { IRootState, IComment } from '../types';
+import { fetchPost, addComment } from '../store/actions/actionsPost';
 
-import { clearPost, fetchPost, addComment } from '../store/actions/actionsPost';
+interface IMatchParams {
+  id: string;
+}
 
-const PostContainer = (props) => {
-  const { id } = props.match.params;
-  const { loading, error } = useSelector((state) => state.app);
-  const post = useSelector((state) => state.post);
+const PostContainer = (props: RouteComponentProps<any>): JSX.Element => {
+  const { id }: IMatchParams = props.match.params;
+  const { loading, error } = useSelector((state: IRootState) => state.app);
+  const post = useSelector((state: IRootState) => state.post);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(fetchPost(id));
-    return () => dispatch(clearPost());
+    dispatch(fetchPost(+id));
   }, [id, dispatch]);
 
-  const commentPost = (data) => dispatch(addComment(data));
+  // React.useEffect(() => {
+  //   return () => dispatch(clearPost());
+  // });
+
+  const commentPost = (data: IComment) => dispatch(addComment(data));
 
   if (error) {
     return <Error error={error} />;
@@ -38,14 +44,6 @@ const PostContainer = (props) => {
       )}
     </Container>
   );
-};
-
-PostContainer.propTypes = {
-  match: PropTypes.object
-};
-
-PostContainer.defaultProps = {
-  match: {}
 };
 
 export default withRouter(PostContainer);

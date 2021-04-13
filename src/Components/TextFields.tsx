@@ -5,6 +5,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Button, Grid, Container, TextField } from '@material-ui/core';
+import { IPosts } from '../types';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -21,16 +22,23 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
+interface ITextFields {
+  handleSubmitFetch: (data: IPosts, postId: number) => {};
+  postId?: number;
+  loading: boolean;
+  post?: IPosts;
+}
+
 export default function TextFields({
   handleSubmitFetch,
-  postId,
+  postId = 0,
   loading,
   post
-}) {
+}: ITextFields): JSX.Element {
   const classes = useStyles();
   const [title, setTitle] = React.useState(post ? post.title : '');
   const [body, setBody] = React.useState(post ? post.body : '');
-  const data = { title, body };
+  const data: IPosts = { title, body };
 
   React.useEffect(() => {
     if (post && post.title) {
@@ -39,14 +47,14 @@ export default function TextFields({
     }
   }, [post]);
 
-  const handleSubmit = (data, postId) => {
+  const handleSubmit = (data: IPosts, postId: number) => {
     handleSubmitFetch(data, postId);
   };
 
   return (
     <Container component="main" maxWidth="md" className={classes.root}>
       <form
-        className={loading ? classes.loading : null}
+        className={loading ? classes.loading : undefined}
         noValidate
         autoComplete="off"
       >
@@ -77,7 +85,6 @@ export default function TextFields({
                 variant="contained"
                 fullWidth
                 color="primary"
-                className={classes.submit}
                 disabled={!title || !body}
                 onClick={() => handleSubmit(data, postId)}
               >

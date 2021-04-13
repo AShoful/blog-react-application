@@ -13,7 +13,7 @@ import {
 
 import { makeStyles } from '@material-ui/core/styles';
 
-function ElevationScroll(props) {
+function ElevationScroll(props: any) {
   const { children, window } = props;
   const trigger = useScrollTrigger({
     disableHysteresis: true,
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Navbar = (props) => {
+const Navbar = (props: any): JSX.Element => {
   const classes = useStyles();
   return (
     <ElevationScroll {...props} className={classes.root}>

@@ -7,14 +7,15 @@ import PostList from '../Components/PostsList';
 import Sceleton from '../Components/Sceleton';
 import Error from '../Components/Error';
 
+import { IRootState } from '../types';
 import { fetchItems, fetchRemoveItem } from '../store/actions/actionsPosts';
 
-const CardsContainer = () => {
-  const posts = useSelector((state) => state.posts);
-  const { loading, error } = useSelector((state) => state.app);
+const CardsContainer = (): JSX.Element => {
+  const posts = useSelector((state: IRootState) => state.posts);
+  const { loading, error } = useSelector((state: IRootState) => state.app);
   const dispatch = useDispatch();
 
-  const removeItem = (id) => dispatch(fetchRemoveItem(id));
+  const removeItem = (id: number) => dispatch(fetchRemoveItem(id));
 
   React.useEffect(() => {
     dispatch(fetchItems());
@@ -27,12 +28,12 @@ const CardsContainer = () => {
   return (
     <Container component="main">
       {!loading ? (
-        posts.map((item) => (
+        posts.map((post) => (
           // check
-          <PostList key={item.id} item={item} remove={removeItem} />
+          <PostList key={post.id} post={post} remove={removeItem} />
         ))
       ) : (
-        <Sceleton />
+        <Sceleton count={3} />
       )}
     </Container>
   );

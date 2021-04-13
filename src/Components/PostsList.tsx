@@ -11,8 +11,8 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-
 import { makeStyles } from '@material-ui/core/styles';
+import { IPosts } from '../types';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -30,8 +30,13 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-export default function PostsList({ item, remove }) {
-  const { id, title } = item;
+interface IPostsList {
+  post: IPosts;
+  remove: (id: number) => {};
+}
+
+export default function PostsList({ post, remove }: IPostsList): JSX.Element {
+  const { id = 0, title } = post;
   const handleClickDelete = () => {
     remove(id);
   };

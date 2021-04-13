@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 
 import SendIcon from '@material-ui/icons/Send';
+import { IComment, IPost } from '../types';
 
 const useStyles = makeStyles((theme) => ({
   name: {
@@ -35,7 +36,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function CardPost({ post, addComment }) {
+interface ICardPost {
+  post: IPost;
+  addComment: (data: IComment) => {};
+}
+
+export default function CardPost({ post, addComment }: ICardPost): JSX.Element {
   const [comment, setComment] = useState('');
   const classes = useStyles();
   const { title, body, comments, id } = post;
@@ -46,7 +52,7 @@ export default function CardPost({ post, addComment }) {
   };
 
   return (
-    <Container component="main" maxWidth="md" className={classes.root}>
+    <Container component="main" maxWidth="md">
       <Grid container>
         <Grid item xs={12} sm={12}>
           <Typography

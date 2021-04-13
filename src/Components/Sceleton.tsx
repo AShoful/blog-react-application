@@ -40,20 +40,26 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Skeleton = () => {
+type SkeletonType = {
+  count: number;
+};
+
+const Skeleton = ({ count }: SkeletonType): JSX.Element => {
   const classes = useStyles();
 
-  const content = Array.from({ length: 3 }).map((item, index) => (
-    <div className={classes.card} key={index}>
-      <div className={classes.cardContent}>
-        <div className={classes.handle} />
-        <div className={classes.date} />
-        <div className={classes.fullLine} />
-        <div className={classes.fullLine} />
-        <div className={classes.halfLine} />
+  const content = Array(count)
+    .fill('')
+    .map((_, index) => (
+      <div className={classes.card} key={index}>
+        <div className={classes.cardContent}>
+          <div className={classes.handle} />
+          <div className={classes.date} />
+          <div className={classes.fullLine} />
+          <div className={classes.fullLine} />
+          <div className={classes.halfLine} />
+        </div>
       </div>
-    </div>
-  ));
+    ));
 
   return <Container>{content}</Container>;
 };
